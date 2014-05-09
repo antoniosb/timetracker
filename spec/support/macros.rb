@@ -13,8 +13,17 @@ def drop_schemas
 end
 
 def sign_user_in(user, opt={})
-  visit new_user_session_url(subdomain: opt[:subdomain])
+  if opt[:subdomain]
+    visit new_user_session_url(subdomain: opt[:subdomain])
+  else
+    visit new_user_session_path
+  end
+  
   fill_in 'Email', with: user.email
   fill_in 'Password', with: (opt[:password] || user.password)
   click_button 'Sign in'
-end 
+end
+
+def set_subdomain(subdomain)
+  Capybara.app_host = "http://#{subdomain}.example.com"
+end

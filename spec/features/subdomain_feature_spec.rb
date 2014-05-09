@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "subdomains" do
-  let(:account) { create(:account_with_schema) } 
+  let!(:account) { create(:account_with_schema) } 
 
   it "redirects invalid accounts" do
     visit root_url(subdomain: 'random-subdomain')
